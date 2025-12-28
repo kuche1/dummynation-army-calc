@@ -4,9 +4,10 @@ _M = _K * 1_000
 _TARGET_MAINTNANCE_COST = 1 * _M
 
 
-class _Troop:
+class Troop:
     def __init__(
         self,
+        name: str,
         military_personel: float,
         recruitment_cost: float,
         maintenance_cost: float,
@@ -16,6 +17,8 @@ class _Troop:
         speed: int,
     ) -> None:
         multiplier = _TARGET_MAINTNANCE_COST / maintenance_cost
+
+        self.name = name
 
         self.military_personel = multiplier * military_personel
         self.recruitment_cost = multiplier * recruitment_cost
@@ -28,10 +31,11 @@ class _Troop:
         self.speed = speed
 
     def __repr__(self) -> str:
-        return f"Troop:\n    military_personel: {self.military_personel:_.1f}\n    recruitment_cost: {self.recruitment_cost:_.1f}\n    maintenance_cost: {self.maintenance_cost:_.1f}\n    attack: {self.attack:_.1f}\n    defense: {self.defense:_.1f}\n    pierce: {self.pierce:_.1f}\n    speed: {self.speed}"
+        return f"{self.name}:\n    military_personel: {self.military_personel:_.1f}\n    recruitment_cost: {self.recruitment_cost:_.1f}\n    maintenance_cost: {self.maintenance_cost:_.1f}\n    attack: {self.attack:_.1f}\n    defense: {self.defense:_.1f}\n    pierce: {self.pierce:_.1f}\n    speed: {self.speed}"
 
 
-COMMANDO = _Troop(
+COMMANDO = Troop(
+    "Commando",
     1 * _K,
     6.35 * _K,
     403.73,
@@ -41,7 +45,8 @@ COMMANDO = _Troop(
     10,
 )
 
-GUNNER = _Troop(
+GUNNER = Troop(
+    "Gunner",
     1 * _K,
     9.49 * _K,
     603.68,
@@ -51,7 +56,8 @@ GUNNER = _Troop(
     8,
 )
 
-TANK = _Troop(
+TANK = Troop(
+    "Tank",
     70,
     14.2 * _K,
     140.86,
@@ -61,7 +67,8 @@ TANK = _Troop(
     5,
 )
 
-ROCKET_ARTILERY = _Troop(
+ROCKET_ARTILLERY = Troop(
+    "Rocket Artillery",
     225,
     12.26 * _K,
     241.01,
@@ -71,7 +78,8 @@ ROCKET_ARTILERY = _Troop(
     6,
 )
 
-HELICOPTER = _Troop(
+HELICOPTER = Troop(
+    "Helicopter",
     25,
     11.27 * _K,
     167.16,
@@ -81,7 +89,8 @@ HELICOPTER = _Troop(
     16,
 )
 
-COMBAT_AIRCRAFT = _Troop(
+COMBAT_AIRCRAFT = Troop(
+    "Combat Aircraft",
     4,
     12.12 * _K,
     106.98 * _K,
@@ -91,4 +100,4 @@ COMBAT_AIRCRAFT = _Troop(
     20,
 )
 
-ALL_TROOPS = {COMMANDO, GUNNER, TANK, ROCKET_ARTILERY, HELICOPTER, COMBAT_AIRCRAFT}
+ALL_TROOPS = {COMMANDO, GUNNER, TANK, ROCKET_ARTILLERY, HELICOPTER, COMBAT_AIRCRAFT}
