@@ -8,9 +8,13 @@ from troop import ALL_TROOPS, Troop
 
 
 def main() -> None:
+    find_best_single_troop(ALL_TROOPS)
+
+
+def find_best_single_troop(all_troops: set[Troop]) -> None:
     coefficients_as_dict: dict[Troop, float] = {}
 
-    for troop in ALL_TROOPS:
+    for troop in all_troops:
         ratio_defense = troop.defense / troop.attack
         ratio_pierce = troop.pierce / troop.attack
 
