@@ -1,7 +1,7 @@
 _K = 1_000
 _M = _K * 1_000
 
-_TARGET_MAINTNANCE_COST = 1 * _M
+_TARGET_RECRUITMENT_COST = 1 * _M
 
 
 class Troop:
@@ -16,7 +16,7 @@ class Troop:
         pierce: float,
         speed: int,
     ) -> None:
-        multiplier = _TARGET_MAINTNANCE_COST / maintenance_cost
+        multiplier = _TARGET_RECRUITMENT_COST / recruitment_cost
 
         self.name = name
 
