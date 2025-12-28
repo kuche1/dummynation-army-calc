@@ -11,7 +11,7 @@ from troop import ALL_TROOPS, Troop, combine_troops
 
 LIMIT_DIMINISHING_RETURNS = 0.02
 
-LIMIT_CALC_STEPS = 8
+LIMIT_CALC_STEPS = 7
 
 
 def main() -> None:
