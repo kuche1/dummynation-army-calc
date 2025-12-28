@@ -9,7 +9,9 @@ from itertools import product
 
 from troop import ALL_TROOPS, Troop, combine_troops
 
-# LIMIT_RECRUITMENT_COST = 5_000_000
+LIMIT_DIMINISHING_RETURNS = 0.02
+
+LIMIT_CALC_STEPS = 8
 
 
 def main() -> None:
@@ -18,13 +20,18 @@ def main() -> None:
     # find_best_combination_of_2_troops(ALL_TROOPS)
     # find_best_single_troop(ALL_TROOPS)
 
+    # troop_tank = TANK * 2
+    # print(f"{troop_tank=}")
+    # troop = combine_troops([COMMANDO, ROCKET_ARTILLERY, troop_tank])
+    # print(f"{troop=}")
+
 
 def find_best_combination_of_troops_with_diferent_counts(
     all_troops: set[Troop],
 ) -> None:
     mixed_troops: set[Troop] = set()
 
-    for counts in product(range(0, 1 + 1), repeat=len(all_troops)):
+    for counts in product(range(0, LIMIT_CALC_STEPS + 1), repeat=len(all_troops)):
         # print(f"{counts=}")
 
         multiplied_troops = [
@@ -41,15 +48,6 @@ def find_best_combination_of_troops_with_diferent_counts(
         ##### add new troop
 
         mixed_troops.add(new_troop)
-
-        # do_add = True
-
-        # for registered_troop in mixed_troops:
-        #     if registered_troop.name == new_troop.name:
-        #         do_add = False
-
-        # if do_add:
-        #     mixed_troops.add(new_troop)
 
     find_best_single_troop(mixed_troops)
 
@@ -112,17 +110,24 @@ def find_best_single_troop(all_troops: set[Troop]) -> None:
         ratio_defense = troop.defense / troop.attack
         ratio_pierce = troop.pierce / troop.attack
 
-        badnesss = abs(1 - ratio_defense) + abs(1 - ratio_pierce)
-        coefficients_as_dict[troop] = badnesss * -1
+        diminishing_returns = abs(1 - ratio_defense) + abs(1 - ratio_pierce)
+        if diminishing_returns > LIMIT_DIMINISHING_RETURNS:
+            continue
+
+        # power = troop.attack
+
+        coefficients_as_dict[troop] = diminishing_returns * -1
+        # coefficients_as_dict[troop] = power
 
         # print(f"{troop=}")
         # print()
 
     coefficients = list(coefficients_as_dict.items())
-    coefficients.sort(key=lambda i: i[1])
+    # coefficients.sort(key=lambda i: i[1])
+    coefficients.sort(key=lambda i: i[0].attack, reverse=True)
 
-    for troop, goodness in coefficients:
-        print(f"{goodness=:.3f}")
+    for troop, goodness in reversed(coefficients):
+        print(f"{goodness=:.4f}")
         print(f"{troop=}")
         print()
 

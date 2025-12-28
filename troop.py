@@ -15,8 +15,12 @@ class Troop:
         defense: float,
         pierce: float,
         speed: int,
+        do_not_apply_multiplier: bool = False,
     ) -> None:
-        multiplier = _TARGET_RECRUITMENT_COST / recruitment_cost
+        if do_not_apply_multiplier:
+            multiplier = 1
+        else:
+            multiplier = _TARGET_RECRUITMENT_COST / recruitment_cost
 
         self.name = name
 
@@ -61,6 +65,7 @@ class Troop:
             self.defense * multiplier,
             self.pierce * multiplier,
             self.speed,
+            do_not_apply_multiplier=True,
         )
 
 
