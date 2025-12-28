@@ -1,7 +1,8 @@
 _K = 1_000
 _M = _K * 1_000
 
-_TARGET_RECRUITMENT_COST = 500_000 * _K
+# _TARGET_RECRUITMENT_COST = 500_000 * _K
+_TARGET_RECRUITMENT_SPEED = 50_000
 
 
 class Troop:
@@ -21,7 +22,8 @@ class Troop:
         if do_not_apply_multiplier:
             multiplier = 1
         else:
-            multiplier = _TARGET_RECRUITMENT_COST / recruitment_cost
+            # multiplier = _TARGET_RECRUITMENT_COST / recruitment_cost
+            multiplier = _TARGET_RECRUITMENT_SPEED / recruitment_speed
 
         self.name = name
 
@@ -38,7 +40,7 @@ class Troop:
         self.speed = speed
 
     def __repr__(self) -> str:
-        return f"{self.name}:\n    recruitment_speed: {self.recruitment_speed}\n    military_personel: {self.military_personel:_.1f}\n    recruitment_cost: {self.recruitment_cost:_.1f}\n    maintenance_cost: {self.maintenance_cost:_.1f}\n    attack: {self.attack:_.1f}\n    defense: {self.defense:_.1f}\n    pierce: {self.pierce:_.1f}\n    speed: {self.speed}"
+        return f"{self.name}:\n    recruitment_speed: {self.recruitment_speed:_.1f}\n    military_personel: {self.military_personel:_.1f}\n    recruitment_cost: {self.recruitment_cost:_.1f}\n    maintenance_cost: {self.maintenance_cost:_.1f}\n    attack: {self.attack:_.1f}\n    defense: {self.defense:_.1f}\n    pierce: {self.pierce:_.1f}\n    speed: {self.speed}"
 
     # def __add__(self, other: "Troop") -> "Troop":
     #     # this is only good enough for adding 2 troops together, not 3 or more
