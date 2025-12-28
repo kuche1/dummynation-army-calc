@@ -1,8 +1,6 @@
 #! /usr/bin/env python3
 
-
-# TODO: find best combination of multiple troops, given that you can use each as many times as you want
-# currenty you are limited to 6 times each troop OR 5 times first and 1 time second OR 4 times first and 2 times second AND SO ON
+# TODO: add the ability to treat manpower as the bottleneck rather than money
 
 from argparse import ArgumentParser
 from itertools import product
