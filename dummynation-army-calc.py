@@ -7,9 +7,9 @@ from itertools import product
 
 from troop import ALL_TROOPS, Troop, combine_troops
 
-LIMIT_DIMINISHING_RETURNS = 0.18  # 0.01
+LIMIT_DIMINISHING_RETURNS = 0.1
 
-LIMIT_CALC_STEPS = 7
+LIMIT_CALC_STEPS = 10
 
 
 def main() -> None:
