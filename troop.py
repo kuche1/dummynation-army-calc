@@ -1,8 +1,8 @@
 _K = 1_000
 _M = _K * 1_000
 
-# _TARGET_RECRUITMENT_COST = 500_000 * _K
-_TARGET_RECRUITMENT_SPEED = 50_000
+_TARGET_RECRUITMENT_COST = 500_000 * _K
+# _TARGET_RECRUITMENT_SPEED = 50_000
 
 
 class Troop:
@@ -22,8 +22,8 @@ class Troop:
         if do_not_apply_multiplier:
             multiplier = 1
         else:
-            # multiplier = _TARGET_RECRUITMENT_COST / recruitment_cost
-            multiplier = _TARGET_RECRUITMENT_SPEED / recruitment_speed
+            multiplier = _TARGET_RECRUITMENT_COST / recruitment_cost
+            # multiplier = _TARGET_RECRUITMENT_SPEED / recruitment_speed
 
         self.name = name
 
