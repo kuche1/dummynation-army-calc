@@ -8,6 +8,7 @@ class Troop:
     def __init__(
         self,
         name: str,
+        recruitment_speed: float,
         military_personel: float,
         recruitment_cost: float,
         maintenance_cost: float,
@@ -24,6 +25,8 @@ class Troop:
 
         self.name = name
 
+        self.recruitment_speed = recruitment_speed * multiplier
+
         self.military_personel = multiplier * military_personel
         self.recruitment_cost = multiplier * recruitment_cost
         self.maintenance_cost = multiplier * maintenance_cost
@@ -35,7 +38,7 @@ class Troop:
         self.speed = speed
 
     def __repr__(self) -> str:
-        return f"{self.name}:\n    military_personel: {self.military_personel:_.1f}\n    recruitment_cost: {self.recruitment_cost:_.1f}\n    maintenance_cost: {self.maintenance_cost:_.1f}\n    attack: {self.attack:_.1f}\n    defense: {self.defense:_.1f}\n    pierce: {self.pierce:_.1f}\n    speed: {self.speed}"
+        return f"{self.name}:\n    recruitment_speed: {self.recruitment_speed}\n    military_personel: {self.military_personel:_.1f}\n    recruitment_cost: {self.recruitment_cost:_.1f}\n    maintenance_cost: {self.maintenance_cost:_.1f}\n    attack: {self.attack:_.1f}\n    defense: {self.defense:_.1f}\n    pierce: {self.pierce:_.1f}\n    speed: {self.speed}"
 
     # def __add__(self, other: "Troop") -> "Troop":
     #     # this is only good enough for adding 2 troops together, not 3 or more
@@ -58,6 +61,7 @@ class Troop:
     def __mul__(self, multiplier: float) -> "Troop":
         return Troop(
             f"{self.name}*{multiplier}",
+            self.recruitment_speed * multiplier,
             self.military_personel * multiplier,
             self.recruitment_cost * multiplier,
             self.maintenance_cost * multiplier,
@@ -71,6 +75,7 @@ class Troop:
 
 COMMANDO = Troop(
     "Commando",
+    2,
     1 * _K,
     6.35 * _K,
     403.73,
@@ -82,6 +87,7 @@ COMMANDO = Troop(
 
 GUNNER = Troop(
     "Gunner",
+    2,
     1 * _K,
     9.49 * _K,
     603.68,
@@ -93,6 +99,7 @@ GUNNER = Troop(
 
 TANK = Troop(
     "Tank",
+    1,
     70,
     14.2 * _K,
     140.86,
@@ -104,6 +111,7 @@ TANK = Troop(
 
 ROCKET_ARTILLERY = Troop(
     "RocketArtillery",
+    1,
     225,
     12.26 * _K,
     241.01,
@@ -115,6 +123,7 @@ ROCKET_ARTILLERY = Troop(
 
 HELICOPTER = Troop(
     "Helicopter",
+    1,
     25,
     11.27 * _K,
     167.16,
@@ -126,6 +135,7 @@ HELICOPTER = Troop(
 
 COMBAT_AIRCRAFT = Troop(
     "CombatAircraft",
+    1,
     4,
     12.12 * _K,
     106.98 * _K,
@@ -145,6 +155,7 @@ def combine_troops(troops: tuple[Troop, ...] | list[Troop]) -> Troop:
 
     return Troop(
         name,
+        sum([troop.recruitment_speed for troop in troops]) / len(troops),
         sum([troop.military_personel for troop in troops]) / len(troops),
         sum([troop.recruitment_cost for troop in troops]) / len(troops),
         sum([troop.maintenance_cost for troop in troops]) / len(troops),
