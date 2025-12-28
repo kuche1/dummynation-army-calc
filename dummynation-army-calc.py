@@ -9,34 +9,85 @@ from itertools import product
 
 from troop import ALL_TROOPS, Troop, combine_troops
 
-LIMIT_TROOP_COMBINATION_SIZE = len(ALL_TROOPS)
-
 # LIMIT_RECRUITMENT_COST = 5_000_000
 
 
 def main() -> None:
-    find_best_combination_of_multiple_troops(ALL_TROOPS)
+    find_best_combination_of_troops_with_diferent_counts(ALL_TROOPS)
+    # find_best_combination_of_multiple_troops(ALL_TROOPS)
     # find_best_combination_of_2_troops(ALL_TROOPS)
     # find_best_single_troop(ALL_TROOPS)
 
 
-def find_best_combination_of_multiple_troops(all_troops: set[Troop]) -> None:
+def find_best_combination_of_troops_with_diferent_counts(
+    all_troops: set[Troop],
+) -> None:
     mixed_troops: set[Troop] = set()
 
-    for combination in product(*([ALL_TROOPS] * LIMIT_TROOP_COMBINATION_SIZE)):
-        # print(f"{combination=}")
-        new_troop = combine_troops(combination)
+    for counts in product(range(0, 1 + 1), repeat=len(all_troops)):
+        # print(f"{counts=}")
 
-        do_add = True
+        multiplied_troops = [
+            troop * count
+            for troop, count in zip(all_troops, counts, strict=True)
+            if count != 0
+        ]
 
-        for registered_troop in mixed_troops:
-            if registered_troop.name == new_troop.name:
-                do_add = False
+        if len(multiplied_troops) == 0:
+            continue
 
-        if do_add:
-            mixed_troops.add(new_troop)
+        new_troop = combine_troops(multiplied_troops)
+
+        ##### add new troop
+
+        mixed_troops.add(new_troop)
+
+        # do_add = True
+
+        # for registered_troop in mixed_troops:
+        #     if registered_troop.name == new_troop.name:
+        #         do_add = False
+
+        # if do_add:
+        #     mixed_troops.add(new_troop)
 
     find_best_single_troop(mixed_troops)
+
+    # mixed_troops: set[Troop] = set()
+
+    # for combination in product(*([ALL_TROOPS] * len(ALL_TROOPS))):
+    #     # print(f"{combination=}")
+    #     new_troop = combine_troops(combination)
+
+    #     do_add = True
+
+    #     for registered_troop in mixed_troops:
+    #         if registered_troop.name == new_troop.name:
+    #             do_add = False
+
+    #     if do_add:
+    #         mixed_troops.add(new_troop)
+
+    # find_best_single_troop(mixed_troops)
+
+
+# def find_best_combination_of_multiple_troops(all_troops: set[Troop]) -> None:
+#     mixed_troops: set[Troop] = set()
+
+#     for combination in product(*([all_troops] * len(all_troops))):
+#         # print(f"{combination=}")
+#         new_troop = combine_troops(combination)
+
+#         do_add = True
+
+#         for registered_troop in mixed_troops:
+#             if registered_troop.name == new_troop.name:
+#                 do_add = False
+
+#         if do_add:
+#             mixed_troops.add(new_troop)
+
+#     find_best_single_troop(mixed_troops)
 
 
 # def find_best_combination_of_2_troops(all_troops_as_set: set[Troop]) -> None:
@@ -71,7 +122,7 @@ def find_best_single_troop(all_troops: set[Troop]) -> None:
     coefficients.sort(key=lambda i: i[1])
 
     for troop, goodness in coefficients:
-        print(f"{goodness=:.2f}")
+        print(f"{goodness=:.3f}")
         print(f"{troop=}")
         print()
 

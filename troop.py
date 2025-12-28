@@ -1,7 +1,7 @@
 _K = 1_000
 _M = _K * 1_000
 
-_TARGET_RECRUITMENT_COST = 1 * _M
+_TARGET_RECRUITMENT_COST = 500_000 * _K
 
 
 class Troop:
@@ -51,6 +51,18 @@ class Troop:
     #         min(self.speed, other.speed),
     #     )
 
+    def __mul__(self, multiplier: float) -> "Troop":
+        return Troop(
+            f"{self.name}*{multiplier}",
+            self.military_personel * multiplier,
+            self.recruitment_cost * multiplier,
+            self.maintenance_cost * multiplier,
+            self.attack * multiplier,
+            self.defense * multiplier,
+            self.pierce * multiplier,
+            self.speed,
+        )
+
 
 COMMANDO = Troop(
     "Commando",
@@ -86,7 +98,7 @@ TANK = Troop(
 )
 
 ROCKET_ARTILLERY = Troop(
-    "Rocket Artillery",
+    "RocketArtillery",
     225,
     12.26 * _K,
     241.01,
@@ -108,7 +120,7 @@ HELICOPTER = Troop(
 )
 
 COMBAT_AIRCRAFT = Troop(
-    "Combat Aircraft",
+    "CombatAircraft",
     4,
     12.12 * _K,
     106.98 * _K,
@@ -121,7 +133,7 @@ COMBAT_AIRCRAFT = Troop(
 ALL_TROOPS = {COMMANDO, GUNNER, TANK, ROCKET_ARTILLERY, HELICOPTER, COMBAT_AIRCRAFT}
 
 
-def combine_troops(troops: tuple[Troop, ...]) -> Troop:
+def combine_troops(troops: tuple[Troop, ...] | list[Troop]) -> Troop:
     all_names = [troop.name for troop in troops]
     all_names.sort()
     name = " + ".join(all_names)
