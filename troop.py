@@ -33,6 +33,24 @@ class Troop:
     def __repr__(self) -> str:
         return f"{self.name}:\n    military_personel: {self.military_personel:_.1f}\n    recruitment_cost: {self.recruitment_cost:_.1f}\n    maintenance_cost: {self.maintenance_cost:_.1f}\n    attack: {self.attack:_.1f}\n    defense: {self.defense:_.1f}\n    pierce: {self.pierce:_.1f}\n    speed: {self.speed}"
 
+    def __add__(self, other: "Troop") -> "Troop":
+        # this is only good enough for adding 2 troops together, not 3 or more
+        if self.name < other.name:
+            name = f"{self.name} + {other.name}"
+        else:
+            name = f"{other.name} + {self.name}"
+
+        return Troop(
+            name,
+            (self.military_personel + other.military_personel) / 2,
+            (self.recruitment_cost + other.recruitment_cost) / 2,
+            (self.maintenance_cost + other.maintenance_cost) / 2,
+            (self.attack + other.attack) / 2,
+            (self.defense + other.defense) / 2,
+            (self.pierce + other.pierce) / 2,
+            min(self.speed, other.speed),
+        )
+
 
 COMMANDO = Troop(
     "Commando",
